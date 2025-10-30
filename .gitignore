@@ -1,0 +1,290 @@
+# ===============================
+# 🌍 GLOBAL (applies to whole repo)
+# ===============================
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Editors / IDE common dirs
+.vscode/
+.idea/
+
+# Logs
+*.log
+logs/
+
+# Root-level env files (keep example tracked)
+.env
+.env.*
+!.env.example
+
+# Python bytecode fallback (if any stray at root)
+__pycache__/
+*.pyc
+*.pyo
+
+# Prevent accidental top-level cache folder
+/cache/
+
+# Node fallout (if someone accidentally installs at root)
+node_modules/
+build/
+dist/
+
+# =========================================
+# ⚛️ FRONTEND (React / JS) — lives in ./frontend
+# =========================================
+
+# --- compiled output (bundler/build artifacts)
+frontend/dist/
+frontend/tmp/
+frontend/out-tsc/
+frontend/build/         # CRA/Vite/Next build output
+
+# --- runtime data
+frontend/pids/
+frontend/*.pid
+frontend/*.seed
+frontend/*.pid.lock
+
+# --- coverage output
+frontend/lib-cov/
+frontend/coverage/
+frontend/.nyc_output/
+
+# --- build systems / legacy tooling caches
+frontend/.grunt/
+frontend/bower_components/
+frontend/.lock-wscript
+
+# --- dependency directories
+frontend/node_modules/
+frontend/jspm_packages/
+
+# --- optional caches
+frontend/.npm/
+frontend/.eslintcache
+frontend/.yarn-integrity
+
+# --- logs (npm/yarn)
+frontend/*.log
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+
+# --- misc tool caches
+frontend/.sass-cache/
+frontend/connect.lock
+frontend/typings/
+
+# --- output of `npm pack`
+frontend/*.tgz
+
+# --- environment files (React/Next/Vite)
+frontend/.env
+frontend/.env.local
+frontend/.env.development
+frontend/.env.production
+frontend/.env.test
+
+# --- framework-specific build dirs
+frontend/.next/        # Next.js
+frontend/.vite/        # Vite
+
+# --- IDE / editor project files
+frontend/.idea
+frontend/.project
+frontend/.classpath
+frontend/.c9/
+frontend/*.launch
+frontend/.settings/
+frontend/*.sublime-workspace
+
+# --- VSCode project files (keep explicit JSONs if you prefer)
+frontend/.vscode/*
+!frontend/.vscode/settings.json
+!frontend/.vscode/tasks.json
+!frontend/.vscode/launch.json
+!frontend/.vscode/extensions.json
+
+# --- system files that sneak into the folder
+frontend/.DS_Store
+frontend/Thumbs.db
+
+
+# ========================================
+# 🐍 BACKEND (Python / FastAPI) — ./backend
+# ========================================
+
+# --- byte-compiled / optimized / DLL files
+backend/__pycache__/
+backend/*.py[codz]
+backend/*$py.class
+
+# --- C extensions
+backend/*.so
+
+# --- distribution / packaging artifacts
+backend/.Python
+backend/build/
+backend/develop-eggs/
+backend/dist/
+backend/downloads/
+backend/eggs/
+backend/.eggs/
+backend/lib/
+backend/lib64/
+backend/parts/
+backend/sdist/
+backend/var/
+backend/wheels/
+backend/share/python-wheels/
+backend/*.egg-info/
+backend/.installed.cfg
+backend/*.egg
+backend/MANIFEST
+
+# --- PyInstaller specs / manifests
+backend/*.manifest
+backend/*.spec
+
+# --- pip installer logs
+backend/pip-log.txt
+backend/pip-delete-this-directory.txt
+
+# --- unit test / coverage reports
+backend/htmlcov/
+backend/.tox/
+backend/.nox/
+backend/.coverage
+backend/.coverage.*
+backend/.cache
+backend/nosetests.xml
+backend/coverage.xml
+backend/*.cover
+backend/*.py.cover
+backend/.hypothesis/
+backend/.pytest_cache/
+backend/cover/
+
+# --- translations
+backend/*.mo
+backend/*.pot
+
+# --- Django (if ever used)
+backend/*.log
+backend/local_settings.py
+backend/db.sqlite3
+backend/db.sqlite3-journal
+
+# --- Flask (if ever used)
+backend/instance/
+backend/.webassets-cache
+
+# --- Scrapy (if ever used)
+backend/.scrapy
+
+# --- Sphinx documentation build
+backend/docs/_build/
+
+# --- PyBuilder
+backend/.pybuilder/
+backend/target/
+
+# --- Jupyter Notebook checkpoints
+backend/.ipynb_checkpoints
+
+# --- IPython profiles/config
+backend/profile_default/
+backend/ipython_config.py
+
+# --- pyenv (usually commit .python-version for apps; ignore if not)
+# backend/.python-version
+
+# --- pipenv (typically keep Pipfile.lock for apps; ignore if you prefer)
+# backend/Pipfile.lock
+
+# --- UV (new Python package manager; usually keep uv.lock for apps)
+# backend/uv.lock
+
+# --- poetry (usually keep poetry.lock for apps)
+# backend/poetry.lock
+# backend/poetry.toml
+
+# --- pdm (usually keep pdm.lock for apps)
+# backend/pdm.lock
+# backend/pdm.toml
+backend/.pdm-python
+backend/.pdm-build/
+
+# --- pixi env / lockfiles
+# backend/pixi.lock
+backend/.pixi
+
+# --- PEP 582 local packages directory
+backend/__pypackages__/
+
+# --- Celery state
+backend/celerybeat-schedule
+backend/celerybeat.pid
+
+# --- Redis / RabbitMQ / ActiveMQ local data
+backend/*.rdb
+backend/*.aof
+backend/*.pid
+backend/mnesia/
+backend/rabbitmq/
+backend/rabbitmq-data/
+backend/activemq-data/
+
+# --- SageMath parsed
+backend/*.sage.py
+
+# --- virtual environments (keep venv inside backend)
+backend/.venv
+backend/venv/
+backend/ENV/
+backend/env/
+backend/env.bak/
+backend/venv.bak/
+
+# --- Spyder / Rope project dirs
+backend/.spyderproject
+backend/.spyproject
+backend/.ropeproject
+
+# --- mkdocs site
+backend/site/
+
+# --- type checker caches
+backend/.mypy_cache/
+backend/.dmypy.json
+backend/dmypy.json
+backend/.pyre/
+backend/.pytype/
+
+# --- Cython debug symbols
+backend/cython_debug/
+
+# --- PyCharm (JetBrains) project files (usually keep at root global ignore)
+# backend/.idea/
+
+# --- Abstra (local state)
+backend/.abstra/
+
+# --- VS Code (usually globally ignored at root)
+# backend/.vscode/
+
+# --- Ruff cache
+backend/.ruff_cache/
+
+# --- PyPI config
+backend/.pypirc
+
+# --- Marimo temp
+backend/marimo/_static/
+backend/marimo/_lsp/
+backend/__marimo__/
+
+# --- Streamlit secrets
+backend/.streamlit/secrets.toml
