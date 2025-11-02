@@ -38,9 +38,22 @@
     npm install
     ```
 
-5. **Configure your API key**  
-   Open the `.env.example` file and copy its contents into a new `.env` file (if it doesn’t already exist).  
-   Then replace the placeholder API key with your own.
+5. **Configure your environment variables**
+
+    Copy the `.env.example` file and rename it to `.env` (if it doesn’t already exist).  
+    Then update the following values with your own credentials and backend configuration:
+
+    - **API keys:**  
+      Replace the placeholder keys (`GEMINI_API_KEY`, `OPENROUTER_API_KEY`, `DMS_API_KEY`) with your own.
+    - **Backend proxy URL:**  
+      Adjust the backend URL if you’re running the FastAPI server on a different port or host.  
+      This controls how the frontend connects to the backend through the proxy.
+
+    Example:
+
+    ```bash
+    REACT_APP_BACKEND_URL=http://localhost:8888
+    ```
 
 6. **Start the backend server**
 
@@ -48,8 +61,8 @@
     uvicorn app.main:app --reload --host 0.0.0.0 --port <your_port>
     ```
 
-    > 💡 _Tip:_ The frontend proxy defaults to **port 8888**.  
-    > If you change it, update `frontend/setupProxy.js` accordingly.
+    > 💡 Remember to match `<your_port>` with the value in your `.env` file  
+    > (`REACT_APP_BACKEND_URL=http://localhost:<your_port>`).
 
 7. **Start the web UI**
 
