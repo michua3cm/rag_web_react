@@ -1,0 +1,56 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+    margin-left: auto;
+    max-width: 100%;
+}
+
+.btn {
+    position: relative;
+    overflow: hidden; /* confine flash inside button */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    margin: -1px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background: transparent;
+    color: #f8f8f2;
+    line-height: 1;
+    font-size: 18px;
+    transition: background 0.15s ease, opacity 0.15s ease;
+}
+
+.btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.btn::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.35); /* translucent white */
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 200ms ease-out;
+}
+
+/* On click: show flash; on release: it fades out (the "flash") */
+.btn:active::after {
+    opacity: 1;
+}
+
+/* Icon cross-fade: hide during press so the swap appears after flash */
+.icon {
+    font-size: 1.2em; /* keep your size */
+    transition: opacity 150ms ease;
+}
+
+.btn:active .icon {
+    opacity: 0; /* fades out while pressed */
+}
