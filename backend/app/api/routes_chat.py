@@ -10,8 +10,13 @@ from ..core.clients import gemini_client, openrouter_client, dms_client
 from ..services.rag_core import build_prompt, retrieve_context
 from ..utils.stream_utils import stream_content
 
-router = APIRouter(prefix="", tags=["chat"])  # keep same paths as before
+SSE_HEADERS = {
+    "Cache-Control": "no-cache, no-transform",
+    "X-Accel-Buffering": "no",
+    "Connection": "keep-alive",
+}
 
+router = APIRouter(prefix="", tags=["chat"])  # keep same paths as before
 
 # ---------- helpers ----------
 def get_prompt_from_app(request: Request) -> str:
@@ -48,7 +53,11 @@ async def gemini_native_stream(question: str, request: Request) -> StreamingResp
             logger.error(f"Gemini 原生串流錯誤: {e}")
             yield f"data: [錯誤] {str(e)}\n\n"
 
-    return StreamingResponse(event_generator(), media_type="text/event-stream")
+    return StreamingResponse(
+        event_generator(),
+        media_type="text/event-stream",
+        headers=SSE_HEADERS
+    )
 
 
 # ---------- 2) Gemini stream (optional RAG) ----------
@@ -89,7 +98,11 @@ async def gemini_stream(question: str, request: Request, use_rag: bool = True) -
             logger.error(f"Gemini 串流錯誤: {e}")
             yield f"data: [錯誤] {str(e)}\n\n"
 
-    return StreamingResponse(event_generator(), media_type="text/event-stream")
+    return StreamingResponse(
+        event_generator(),
+        media_type="text/event-stream",
+        headers=SSE_HEADERS
+    )
 
 
 # ---------- 3) OpenRouter stream ----------
@@ -124,7 +137,11 @@ async def openrouter_stream(question: str, request: Request) -> StreamingRespons
             logger.error(f"OpenRouter 串流錯誤: {e}")
             yield f"data: [錯誤] {str(e)}\n\n"
 
-    return StreamingResponse(event_generator(), media_type="text/event-stream")
+    return StreamingResponse(
+        event_generator(),
+        media_type="text/event-stream",
+        headers=SSE_HEADERS
+    )
 
 
 # ---------- 4) DMS stream ----------
@@ -156,7 +173,11 @@ async def dms_stream(question: str, request: Request) -> StreamingResponse:
             logger.error(f"DMS 串流錯誤: {e}")
             yield f"data: [錯誤] {str(e)}\n\n"
 
-    return StreamingResponse(event_generator(), media_type="text/event-stream")
+    return StreamingResponse(
+        event_generator(),
+        media_type="text/event-stream",
+        headers=SSE_HEADERS
+    )
 
 
 # ---------- 5) Unified POST /chat ----------
