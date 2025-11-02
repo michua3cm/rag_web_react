@@ -45,8 +45,11 @@
 6. **Start the backend server**
 
     ```bash
-    uvicorn app.main:app --reload --host 0.0.0.0 --port 8888
+    uvicorn app.main:app --reload --host 0.0.0.0 --port <your_port>
     ```
+
+    > 💡 _Tip:_ The frontend proxy defaults to **port 8888**.  
+    > If you change it, update `frontend/setupProxy.js` accordingly.
 
 7. **Start the web UI**
 
@@ -84,24 +87,27 @@ rag_web_react/
 │   │   ├── cache/                        # Cached or temporary files (ignored by Git)
 │   │   └── main.py                       # FastAPI app entry point
 │   │
-│   ├── .venv/                            # Python virtual environment (ignored)
-│   ├── requirements.txt                  # Python dependencies
-│   └── .gitignore                        # Backend-specific ignore rules
+│   └── requirements.txt                  # Python dependencies
 │
 ├── frontend/
 │   ├── public/
 │   │   └── index.html                    # Main HTML entry
 │   ├── src/
+│   │   ├── components/
+│   │   │   └── CodeBlockRenderer.js      # Custom Markdown code block renderer
+│   │   │       ├── index.js
+│   │   │       └── CodeBlockButtons.module.css
+│   │   ├── utils/
+│   │   │   └── copyText.js               # Copy functionality
+│   │   ├── styles/
+│   │   │   └── App.css
 │   │   ├── App.js                        # React root component
-│   │   ├── App.css                       # App-level styling
-│   │   ├── CodeRenderer.js               # Custom Markdown code block renderer
-│   │   ├── index.js                      # React entry point
-│   │   └── setupProxy.js                 # Proxy setup to call FastAPI backend
-│   ├── package.json                      # Frontend dependencies & scripts
-│   ├── .env                              # Local frontend environment variables
-│   └── .gitignore                        # Frontend-specific ignore rules
+│   │   └── index.js                      # React entry point
+│   ├── setupProxy.js                     # Proxy setup to call FastAPI backend
+│   └── package.json                      # Frontend dependencies & scripts
 │
 ├── .env.example                          # Example environment template (for both BE/FE)
+├── .prettierrc
 ├── .gitignore                            # Global ignore rules (root-level)
 └── README.md                             # Project documentation
 ```
