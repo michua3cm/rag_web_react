@@ -1,6 +1,8 @@
 // src/setupProxy.js
 const { createProxyMiddleware } = require("http-proxy-middleware");
 
+const TARGET_URL = process.env.REACT_APP_API_BASE?.replace(/\/$/, ""); // remove trailing slash
+
 module.exports = function (app) {
     app.use(
         [
@@ -10,7 +12,7 @@ module.exports = function (app) {
             "/dms_stream"
         ],
         createProxyMiddleware({
-            target: "http://localhost:8888",
+            target: TARGET_URL,
             changeOrigin: true,
             ws: true,
             // VERY IMPORTANT for SSE

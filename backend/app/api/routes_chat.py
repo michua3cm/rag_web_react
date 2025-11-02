@@ -217,7 +217,7 @@ async def chat(request_body: ChatRequest, request: Request) -> StreamingResponse
             try:
                 response = await openrouter_client.chat.completions.create(
                     extra_headers={
-                        "HTTP-Referer": "http://localhost:8888",
+                        "HTTP-Referer": os.getenv("REACT_APP_API_SERVER"),
                         "X-Title": "LLM Chatbot",
                     },
                     model=request_body.model,

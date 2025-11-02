@@ -3,7 +3,7 @@ import { copyText } from "../../utils/copyText";
 
 import styles from "./CodeBlockButtons.module.css";
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:8888"; // FIXME: 根據設定調整
+const API_BASE_URL = process.env.REACT_APP_API_BASE; // FIXME: 根據設定調整
 
 /**
  * Custom renderer for Markdown code blocks and inline code, used with react-markdown.
