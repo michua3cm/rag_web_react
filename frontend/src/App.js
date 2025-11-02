@@ -1,7 +1,7 @@
-import React, { useState, useRef, useEffect, useMemo } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import CodeRenderer from "./CodeRenderer";
+import CodeRenderer from "./components/CodeBlockRenderer/index";
 
 function App() {
     const [messages, setMessages] = useState([]);
@@ -234,7 +234,7 @@ function App() {
                         borderRadius: "10px",
                         boxSizing: "border-box",
                         padding: "10px",
-                        paddingTop: "56px" // ✅ 給孤島留白，避免內容被遮蓋
+                        paddingTop: "20px"
                     }}
                 >
                     {messages.map((msg, index) => (
@@ -375,7 +375,7 @@ function App() {
                         }}
                     >
                         <span
-                            className="material-icons"
+                            className="material-symbols-outlined filled"
                             style={{ fontSize: "20px" }}
                         >
                             {isStreaming ? "stop" : "send"}
