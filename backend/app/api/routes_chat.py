@@ -1,5 +1,6 @@
 from typing import AsyncIterator, Tuple
 import os
+import asyncio
 from fastapi import APIRouter, Request, HTTPException
 from fastapi.responses import StreamingResponse
 from google.genai.types import GenerateContentConfig
@@ -35,6 +36,9 @@ async def gemini_native_stream(question: str, request: Request) -> StreamingResp
             yield "data: [錯誤] Gemini 服務未初始化\n\n"
             return
 
+        yield ":\n\n"
+        await asyncio.sleep(0)  # 讓這段馬上 flush 出去
+        
         try:
             logger.info(f"Gemini 原生問題: {question}")
             config = GenerateContentConfig(max_output_tokens=2000, temperature=0.7)
@@ -67,6 +71,9 @@ async def gemini_stream(question: str, request: Request, use_rag: bool = True) -
         if not gemini_client:
             yield "data: [錯誤] Gemini 服務未初始化\n\n"
             return
+
+        yield ":\n\n"
+        await asyncio.sleep(0)  # 讓這段馬上 flush 出去
 
         try:
             use_rag_now = use_rag and is_rag_enabled(request)
@@ -113,6 +120,9 @@ async def openrouter_stream(question: str, request: Request) -> StreamingRespons
             yield "data: [錯誤] OpenRouter 服務未初始化\n\n"
             return
 
+        yield ":\n\n"
+        await asyncio.sleep(0)  # 讓這段馬上 flush 出去
+
         try:
             logger.info(f"OpenRouter 問題: {question}")
             response = await openrouter_client.chat.completions.create(
@@ -151,6 +161,9 @@ async def dms_stream(question: str, request: Request) -> StreamingResponse:
         if not dms_client:
             yield "data: [錯誤] DMS 服務未初始化\n\n"
             return
+
+        yield ":\n\n"
+        await asyncio.sleep(0)  # 讓這段馬上 flush 出去
 
         try:
             logger.info(f"DMS 問題: {question}")
