@@ -45,24 +45,24 @@
 
     - **API keys:**  
       Replace the placeholder keys (`GEMINI_API_KEY`, `OPENROUTER_API_KEY`, `DMS_API_KEY`) with your own.
-    - **Backend proxy URL:**  
-      Adjust the backend URL if you’re running the FastAPI server on a different port or host.  
-      This controls how the frontend connects to the backend through the proxy.
 
-    Example:
+    - **Host and Port:**
 
-    ```bash
-    REACT_APP_BACKEND_URL=http://localhost:8888
-    ```
+        ```
+        HOST=0.0.0.0
+        PORT=1234
+        ```
+
+    - **Frontend proxy target:**
+        ```
+        REACT_APP_API_IP=127.0.0.1
+        ```
 
 6. **Start the backend server**
 
     ```bash
-    uvicorn app.main:app --reload --host 0.0.0.0 --port <your_port>
+    python -m app.main
     ```
-
-    > 💡 Remember to match `<your_port>` with the value in your `.env` file  
-    > (`REACT_APP_BACKEND_URL=http://localhost:<your_port>`).
 
 7. **Start the web UI**
 
