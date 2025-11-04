@@ -1,9 +1,9 @@
 from pathlib import Path
-
+import os
+from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-from fastapi.templating import Jinja2Templates
 
 from .core.config import logger
 from .core.rag_init import initialize_rag
@@ -45,9 +45,24 @@ app = create_app()
 
 if __name__ == "__main__":
     import uvicorn
+
+    # 讀 .env（預設讀當前工作目錄的 .env；你放根目錄就從那裡啟動，或自行指定路徑）
+    load_dotenv()  # 如需指定路徑：load_dotenv(dotenv_path=Path(__file__).resolve().parents[2] / ".env")
+
+    HOST = os.getenv("HOST", "0.0.0.0")
+    PORT = int(os.getenv("PORT", "8888"))
+
     print("\n" + "=" * 60)
     print("  LLM Chatbot 伺服器啟動中...")
     print("=" * 60)
-    print("  API 文檔: http://localhost:8888/docs")
+    print(f"  API 文檔: http://localhost:{PORT}/docs")
     print("=" * 60 + "\n")
-    uvicorn.run(app, host="0.0.0.0", port=8888, log_level="info")
+
+    # 用「字串模組路徑」啟動，reload 才會監聽檔案變更
+    uvicorn.run(
+        "app.main:app",
+        host=HOST,
+        port=PORT,
+        log_level="info",
+        reload=True,
+    )

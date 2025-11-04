@@ -3,8 +3,6 @@ import { copyText } from "../../utils/copyText";
 
 import styles from "./CodeBlockButtons.module.css";
 
-const API_BASE_URL = process.env.REACT_APP_API_BASE; // FIXME: 根據設定調整
-
 /**
  * Custom renderer for Markdown code blocks and inline code, used with react-markdown.
  *
@@ -77,7 +75,7 @@ function CodeBlockRenderer({ inline, className, children, ...props }) {
     const parseSTCode = async () => {
         setIsProcessing(true);
         try {
-            const response = await fetch(`${API_BASE_URL}/api/parse_st_code`, {
+            const response = await fetch(`/api/parse_st_code`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ code: raw, extract_type: "both" })

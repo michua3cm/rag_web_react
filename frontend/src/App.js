@@ -56,7 +56,7 @@ function App() {
 
         // 建立 EventSource
         const eventSource = new EventSource(
-            `${endpoint}?question=${encodeURIComponent(userQuestion)}`
+            `/api${endpoint}?question=${encodeURIComponent(userQuestion)}`
         );
         eventSourceRef.current = eventSource;
         console.log(`Connecting to: ${endpoint}`);
