@@ -105,17 +105,31 @@ rag_web_react/
 ├── frontend/
 │   ├── public/
 │   │   └── index.html                    # Main HTML entry
+│   │
 │   ├── src/
 │   │   ├── components/
 │   │   │   └── CodeBlockRenderer.js      # Custom Markdown code block renderer
-│   │   │       ├── index.js
-│   │   │       └── CodeBlockButtons.module.css
+│   │   │   │   ├── index.js
+│   │   │   │   └── CodeBlockButtons.module.css
+│   │   │   └── HybridTextField.js        # General text field component
+│   │   │
+│   │   ├── features/
+│   │   │   ├── ModelSelector.js          # Select the LLM model
+│   │   │   ├── Settings.js               # Setup the chatbot settings
+│   │   │   ├── ChatBox.js                # Main chatting area
+│   │   │   ├── InputBar.js               # Type anything to chat
+│   │   │   ├── ChatLayout.js             # Define the full layout of chatbot
+│   │   │   └── index.js
+│   │   │
 │   │   ├── utils/
 │   │   │   └── copyText.js               # Copy functionality
+│   │   │
 │   │   ├── styles/
 │   │   │   └── App.css
+│   │   │
 │   │   ├── App.js                        # React root component
 │   │   └── index.js                      # React entry point
+│   │
 │   ├── setupProxy.js                     # Proxy setup to call FastAPI backend
 │   └── package.json                      # Frontend dependencies & scripts
 │
