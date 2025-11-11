@@ -1,10 +1,19 @@
+// ============================
+// src/features/InputBar.js
+// ============================
 import { useState, useMemo, useCallback } from 'react';
 import { Box } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import StopIcon from '@mui/icons-material/Stop';
 import HybridTextField from '../components/HybridTextField';
 
-export default function InputBar({ onSend, onStop, isStreaming, disabled }) {
+export default function InputBar({
+    onSend,
+    onStop,
+    isStreaming,
+    disabled,
+    maxWidth = 768
+}) {
     const [value, setValue] = useState('');
     const canSend = value.trim().length > 0;
 
@@ -38,7 +47,15 @@ export default function InputBar({ onSend, onStop, isStreaming, disabled }) {
     };
 
     return (
-        <Box>
+        <Box
+            sx={{
+                mx: 'auto',
+                mb: 2,
+                px: { xs: 2, sm: 2.5, md: 0 },
+                width: '100%',
+                maxWidth
+            }}
+        >
             <HybridTextField
                 fullWidth
                 placeholder={isStreaming ? 'Receiving…' : 'Type your message'}

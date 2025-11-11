@@ -1,13 +1,15 @@
-// features/ChatBox.js
+// ============================
+// src/features/ChatBox.js
+// ============================
 import React, { useEffect, useRef } from 'react';
 import { Box, Stack, Paper, Typography } from '@mui/material';
+import { scrollbar } from '../styles/scrollbar';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
-// NOTE: path is from /src/features to /src/components/CodeBlockRenderer/index
-import CodeBlockRenderer from '../components/CodeBlockRenderer/index';
+import CodeBlockRenderer from '../components/CodeBlockRenderer';
 
-export default function ChatBox({ messages = [], sx }) {
+export default function ChatBox({ messages = [], sx, maxWidth = 768 }) {
     const scrollRef = useRef(null);
 
     useEffect(() => {
@@ -18,8 +20,16 @@ export default function ChatBox({ messages = [], sx }) {
     }, [messages]);
 
     return (
-        <Box ref={scrollRef} sx={{ px: 2, py: 2, overflowY: 'auto', ...sx }}>
-            <Stack spacing={1.5}>
+        <Box
+            ref={scrollRef}
+            sx={(theme) => ({
+                overflowY: 'auto',
+                '&': { ...scrollbar(theme, { variant: 'neutral' }) },
+                ...sx
+            })}
+        >
+            {/* centered inner wrapper */}
+            <Stack spacing={1} sx={{ mx: 'auto', width: '100%', maxWidth }}>
                 {messages.map((m) => (
                     <MessageBubble
                         key={m.id || Math.random()}
@@ -35,43 +45,41 @@ export default function ChatBox({ messages = [], sx }) {
 function MessageBubble({ role, content }) {
     const isUser = role === 'user';
     return (
-        <Box
+        <Paper
+            elevation={0}
             sx={{
-                display: 'flex',
-                justifyContent: isUser ? 'flex-end' : 'flex-start'
+                alignSelf: isUser ? 'flex-end' : 'flex-start', // instead of parent flex
+                maxWidth: isUser ? '66%' : '100%',
+                width: isUser ? 'auto' : '100%', // user ≤ 2/3 width; assistant full-width style
+
+                px: isUser ? 2 : 0,
+                py: 0,
+                borderRadius: isUser ? 4 : 0,
+                bgcolor: isUser ? 'action.selected' : 'transparent',
+
+                // optional quality-of-life tweaks that don't alter markdown spacing
+                '& pre': { overflowX: 'auto' }, // allow code to scroll horizontally
+                '& img': { maxWidth: '100%' } // responsive images
             }}
         >
-            <Paper
-                elevation={0}
+            <Typography
+                component="div"
                 sx={{
-                    maxWidth: isUser ? '66%' : '100%', // user ≤ 2/3 width; assistant full-width style
-                    px: 2,
-                    py: isUser ? 0 : 1.25,
-                    borderRadius: 2,
-                    bgcolor: isUser ? 'action.selected' : 'background.paper',
-                    border: isUser ? 1 : 0,
-                    borderColor: isUser ? 'divider' : undefined,
-                    width: isUser ? 'auto' : '100%'
+                    display: 'contents',
+                    color: 'inherit',
+                    lineHeight: 'inherit',
+                    fontSize: 'inherit'
                 }}
             >
-                <Typography
-                    component="div"
-                    sx={{
-                        whiteSpace: 'pre-wrap',
-                        wordBreak: 'break-word',
-                        my: isUser ? -1 : 0
+                <ReactMarkdown
+                    remarkPlugins={[remarkGfm]}
+                    components={{
+                        code: (props) => <CodeBlockRenderer {...props} /> // your renderer
                     }}
                 >
-                    <ReactMarkdown
-                        remarkPlugins={[remarkGfm]}
-                        components={{
-                            code: (props) => <CodeBlockRenderer {...props} /> // your renderer
-                        }}
-                    >
-                        {content || ''}
-                    </ReactMarkdown>
-                </Typography>
-            </Paper>
-        </Box>
+                    {content || ''}
+                </ReactMarkdown>
+            </Typography>
+        </Paper>
     );
 }
