@@ -74,7 +74,7 @@ export default function CodeBlockRenderer({
     }, [raw]);
 
     // Theme-aware surfaces
-    const surface = theme.palette.mode === 'dark' ? '#2e2e2e' : '#f5f7fa';
+    const surface = theme.palette.mode === 'dark' ? '#2e2e2e' : '#e5e7ea';
     const border = theme.palette.mode === 'dark' ? '#141414' : '#e5e9f0';
     const textPrimary = theme.palette.mode === 'dark' ? '#f8f8f2' : '#2c3e50';
     const subSurface =
