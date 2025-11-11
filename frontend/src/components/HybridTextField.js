@@ -2,6 +2,7 @@
 // src/components/HybridTextField.js
 // ============================
 import { TextField, InputAdornment, IconButton, Tooltip } from '@mui/material';
+import { scrollbar } from '../styles/scrollbar';
 
 /**
  * HybridTextField — a theme-aware TextField combining outlined borders with a filled background.
@@ -10,7 +11,7 @@ import { TextField, InputAdornment, IconButton, Tooltip } from '@mui/material';
  * @param {object} props
  * @param {object} [props.adornments] - Optional adornments for the field.
  * @param {object} [props.adornments.start] - Start adornment config.
- * @param {React.ReactNode} [props.adornments.start.icon] - Icon element.
+ * @param {MUI.icon} [props.adornments.start.icon] - Icon element.
  * @param {function} [props.adornments.start.onClick] - Click handler.
  * @param {boolean} [props.adornments.start.disabled] - Disable state.
  * @param {string} [props.adornments.start.ariaLabel] - Accessibility label.
@@ -114,45 +115,9 @@ export default function HybridTextField({
                         },
                         borderRadius: 8,
 
-                        // Scrollbar customization (WebKit browsers)
-                        '& .MuiInputBase-inputMultiline::-webkit-scrollbar': {
-                            width: 8 // width (or height) of the scrollbar track
-                        },
-                        '& .MuiInputBase-inputMultiline::-webkit-scrollbar-track':
-                            {
-                                // the rail behind the thumb
-                                backgroundColor:
-                                    theme.palette.mode === 'light'
-                                        ? theme.palette.grey[100] // light mode = light grey
-                                        : theme.palette.grey[800], // dark mode = dark grey
-                                borderRadius: 8 // smooth corners at both ends of the rail
-                            },
-                        '& .MuiInputBase-inputMultiline::-webkit-scrollbar-thumb':
-                            {
-                                // actual draggable thumb
-                                backgroundColor:
-                                    theme.palette.mode === 'light'
-                                        ? theme.palette.grey[400]
-                                        : theme.palette.grey[600],
-                                borderRadius: 8 // rounded ends for consistency
-                            },
-                        '& .MuiInputBase-inputMultiline::-webkit-scrollbar-thumb:hover':
-                            {
-                                // darker tone when hovered
-                                backgroundColor:
-                                    theme.palette.mode === 'light'
-                                        ? theme.palette.grey[500]
-                                        : theme.palette.grey[500]
-                            },
-
-                        // 🔹 Firefox fallback
+                        // Scrollbar on the textarea
                         '& .MuiInputBase-inputMultiline': {
-                            scrollbarWidth: 'thin', // reduces scrollbar thickness
-                            // defines thumb + track colors
-                            scrollbarColor:
-                                theme.palette.mode === 'light'
-                                    ? `${theme.palette.grey[400]} ${theme.palette.grey[100]}`
-                                    : `${theme.palette.grey[600]} ${theme.palette.grey[800]}`
+                            ...scrollbar(theme, { variant: 'neutral' })
                         }
                     }),
                     startAdornment,
