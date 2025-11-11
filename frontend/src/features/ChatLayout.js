@@ -1,3 +1,6 @@
+// ============================
+// src/features/ChatLayout.js
+// ============================
 import React from 'react';
 import {
     AppBar,
@@ -15,12 +18,14 @@ import Settings from './Settings'; // assumes you already have this
 import ChatBox from './ChatBox';
 import InputBar from './InputBar';
 
+import { generateId } from 'utils/generateId';
+
 const APPBAR_HEIGHT = 64;
+const MAX_CHAT_WIDTH = 768;
 
 export default function ChatLayout({
     title = 'LLM Chat',
     models = [],
-    modelSelectorSx,
     themeMode, // optional: only used if your Settings menu needs it
     setThemeMode // optional
 }) {
@@ -35,7 +40,7 @@ export default function ChatLayout({
 
     // Streaming chat state (kept OUT of App.js)
     const [messages, setMessages] = React.useState([
-        { id: 1, role: 'assistant', content: 'Hi! Ask me anything.' }
+        { id: 1, role: 'assistant', content: '' }
     ]);
     const [isStreaming, setIsStreaming] = React.useState(false);
     const eventSourceRef = React.useRef(null);
@@ -67,11 +72,11 @@ export default function ChatLayout({
             // 1) append user message
             setMessages((prev) => [
                 ...prev,
-                { role: 'user', content: userQuestion, id: crypto.randomUUID() }
+                { role: 'user', content: userQuestion, id: generateId() }
             ]);
 
             // 2) append assistant placeholder
-            const chatbotMessageId = crypto.randomUUID();
+            const chatbotMessageId = generateId();
             setMessages((prev) => [
                 ...prev,
                 {
@@ -173,7 +178,6 @@ export default function ChatLayout({
                         value={model}
                         onChange={(e) => setModel(e.target.value)}
                         models={models}
-                        sx={modelSelectorSx}
                         showLabel={false}
                         disabled={isStreaming}
                     />
@@ -199,8 +203,6 @@ export default function ChatLayout({
                         anchorEl={settingsAnchorEl}
                         open={settingsOpen}
                         onClose={() => setSettingsAnchorEl(null)}
-                        themeMode={themeMode}
-                        setThemeMode={setThemeMode}
                     />
                 </Toolbar>
             </AppBar>
@@ -214,30 +216,31 @@ export default function ChatLayout({
                     sx: {
                         height: `calc(100dvh - ${APPBAR_HEIGHT}px)`,
                         top: APPBAR_HEIGHT,
-                        borderTopLeftRadius: 16,
-                        borderTopRightRadius: 16,
                         overflow: 'hidden',
-                        display: 'flex'
+                        display: 'flex',
+                        flexDirection: 'column'
                     }
                 }}
             >
-                <Stack sx={{ flex: 1, minHeight: 0 }}>
-                    <ChatBox messages={messages} sx={{ flex: 1 }} />
-                    <Box
-                        sx={{
-                            px: 2,
-                            pb: 2,
-                            pt: 1,
-                            borderTop: `1px solid ${theme.palette.divider}`
-                        }}
-                    >
-                        <InputBar
-                            disabled={false}
-                            isStreaming={isStreaming}
-                            onSend={handleSend}
-                            onStop={handleStop}
-                        />
-                    </Box>
+                <Stack
+                    sx={{
+                        flex: 1,
+                        minHeight: 0,
+                        overflow: 'hidden' // let ChatBox handle its own scroll
+                    }}
+                >
+                    <ChatBox
+                        messages={messages}
+                        maxWidth={MAX_CHAT_WIDTH}
+                        sx={{ flex: 1 }}
+                    />
+                    <InputBar
+                        disabled={false}
+                        isStreaming={isStreaming}
+                        onSend={handleSend}
+                        onStop={handleStop}
+                        maxWidth={MAX_CHAT_WIDTH}
+                    />
                 </Stack>
             </Drawer>
 
