@@ -9,6 +9,7 @@ import {
     useMediaQuery
 } from '@mui/material';
 import ChatLayout from './features/ChatLayout';
+import { SettingsProvider, useSetting } from './settings/context';
 
 // App-level config you wanted to import from root
 const APP_TITLE = 'TDD Chatbot';
@@ -21,18 +22,12 @@ const MODELS = [
     { id: 'openrouter', label: 'OpenRouter' }
 ];
 
-const selectorSx = {
-    minWidth: 200,
-    mr: 2,
-    '& .MuiSelect-select': { py: 0.75 }
-};
-
-export default function App() {
-    // themeMode: 'light' | 'dark' | 'system'
-    const [themeMode, setThemeMode] = React.useState('system');
+function ThemedRoot() {
     const prefersDark = useMediaQuery('(prefers-color-scheme: dark)');
+    const [themeMode] = useSetting('themeMode'); // from context
     const effectiveMode =
         themeMode === 'system' ? (prefersDark ? 'dark' : 'light') : themeMode;
+
     const theme = React.useMemo(
         () => createTheme({ palette: { mode: effectiveMode } }),
         [effectiveMode]
@@ -41,13 +36,15 @@ export default function App() {
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
-            <ChatLayout
-                title={APP_TITLE}
-                models={MODELS}
-                modelSelectorSx={selectorSx}
-                themeMode={themeMode}
-                setThemeMode={setThemeMode}
-            />
+            <ChatLayout title={APP_TITLE} models={MODELS} />
         </ThemeProvider>
+    );
+}
+
+export default function App() {
+    return (
+        <SettingsProvider>
+            <ThemedRoot />
+        </SettingsProvider>
     );
 }
