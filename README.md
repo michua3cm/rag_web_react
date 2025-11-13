@@ -74,6 +74,8 @@
 
     [http://localhost:3000](http://localhost:3000)
 
+> Note: If you’re using VS Code, it’s highly recommended to install the suggested extensions.
+
 ## Project Structure
 
 ```
@@ -108,33 +110,38 @@ rag_web_react/
 │   │
 │   ├── src/
 │   │   ├── components/
-│   │   │   └── CodeBlockRenderer.js      # Custom Markdown code block renderer
-│   │   │   │   ├── index.js
-│   │   │   │   └── CodeBlockButtons.module.css
-│   │   │   └── HybridTextField.js        # General text field component
+│   │   │   ├── CodeBlockRenderer.jsx     # Custom Markdown code block renderer
+│   │   │   └── HybridTextField.jsx       # General text field component
 │   │   │
 │   │   ├── features/
-│   │   │   ├── ModelSelector.js          # Select the LLM model
-│   │   │   ├── Settings.js               # Setup the chatbot settings
-│   │   │   ├── ChatBox.js                # Main chatting area
-│   │   │   ├── InputBar.js               # Type anything to chat
-│   │   │   ├── ChatLayout.js             # Define the full layout of chatbot
+│   │   │   ├── ModelSelector.jsx         # Select the LLM model
+│   │   │   ├── Settings.jsx              # Setup the chatbot settings
+│   │   │   ├── ChatBox.jsx               # Main chatting area
+│   │   │   ├── InputBar.jsx              # Type anything to chat
+│   │   │   ├── ChatLayout.jsx            # Define the full layout of chatbot
 │   │   │   └── index.js
 │   │   │
+│   │   ├── settings/
+│   │   │   ├── context.js                # React context provider for settings state (theme, options, etc.)
+│   │   │   └── registry.js               # Central registry of all available settings (metadata, types, handlers)
+│   │   │
 │   │   ├── utils/
-│   │   │   └── copyText.js               # Copy functionality
+│   │   │   ├── copyText.js               # Copy functionality
+│   │   │   └── generateId.js             # Generate UUID
 │   │   │
 │   │   ├── styles/
+│   │   │   ├── scrollbar.css             # Custom scrollbar styles for consistent UI across browsers
 │   │   │   └── App.css
 │   │   │
-│   │   ├── App.js                        # React root component
-│   │   └── index.js                      # React entry point
+│   │   ├── App.jsx                       # React root component
+│   │   ├── index.js                      # React entry point
+│   │   └── setupProxy.js                 # Proxy setup to call FastAPI backend
 │   │
-│   ├── setupProxy.js                     # Proxy setup to call FastAPI backend
+│   ├── jsconfig.js                       # Path alias and JS compiler configuration for clean imports
 │   └── package.json                      # Frontend dependencies & scripts
 │
 ├── .env.example                          # Example environment template (for both BE/FE)
-├── .prettierrc
+├── .prettierrc                           # Prettier configuration for code formatting rules
 ├── .gitignore                            # Global ignore rules (root-level)
 └── README.md                             # Project documentation
 ```
