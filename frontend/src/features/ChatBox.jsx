@@ -7,7 +7,7 @@ import { scrollbar } from '../styles/scrollbar';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
-import CodeBlockRenderer from '../components/CodeBlockRenderer';
+import CodeBlockRenderer from '../components/codeblock/CodeBlockRenderer';
 
 export default function ChatBox({ messages = [], sx, maxWidth = 768 }) {
     const scrollRef = useRef(null);
