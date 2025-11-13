@@ -1,0 +1,43 @@
+{
+    // ============================
+    // Global
+    // ============================
+    // Always format on save
+    "editor.formatOnSave": true,
+
+    // ============================
+    // JavaScript / TypeScript (Frontend)
+    // ============================
+    // Use Prettier as formatter
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[javascriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+
+    // ============================
+    // Python (Backend)
+    // ============================
+    // Use Black as formatter
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.formatOnSave": true
+    },
+
+    // Auto-organize imports using isort (optional but recommended)
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": "explicit"
+    },
+
+    // Needed for Python auto-completion, type checking
+    "python.languageServer": "Pylance"
+}

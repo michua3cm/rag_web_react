@@ -6,7 +6,9 @@
 Thumbs.db
 
 # Editors / IDE common dirs
-.vscode/
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
 .idea/
 
 # Logs
